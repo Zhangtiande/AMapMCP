@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>高德地图导航服务</title>
+    <script type="text/javascript">
+        // 从 URL 参数获取安全密钥
+        function getSecurityCodeFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('securitycode');
+        }
+        
+        window._AMapSecurityConfig = {
+          securityJsCode: getSecurityCodeFromUrl(),
+        };
+    </script>
+    <style type="text/css">
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #status {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #4CAF50;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+    }
+    </style>
+    <style type="text/css">
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 70%;
+            overflow-y: auto;
+            bottom: 10px;
+            right: 10px;
+            width: 280px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #panel .amap-call {
+            background-color: #009cf9;
+            border-top-left-radius: 4px;
+   	        border-top-right-radius: 4px;
+        }
+        #panel .amap-lib-driving,
+        #panel .amap-lib-riding,
+        #panel .amap-lib-walking {
+	        border-bottom-left-radius: 4px;
+   	        border-bottom-right-radius: 4px;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+</head>
+<body>
+
+    
+    <div id="status">导航成功！</div>
+    <div id="security-warning" style="position: fixed; top: 50px; right: 10px; background: #ff4444; color: white; padding: 10px; border-radius: 5px; max-width: 300px; z-index: 9999; font-size: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        <strong>⚠️ 安全提醒</strong><br>
+        本服务仅用于学习测试<br>
+        严禁在生产环境使用！<br>
+        <button onclick="document.getElementById('security-warning').style.display='none'" style="margin-top: 5px; padding: 2px 8px; background: white; color: #ff4444; border: none; border-radius: 3px; cursor: pointer;">知道了</button>
+    </div>
+    <div id="container"></div>
+    <div id="panel"></div>
+
+    <script type="text/javascript" src="/static/main.js"></script>
+</body>
+</html>
