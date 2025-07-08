@@ -120,18 +120,11 @@ function performNavigation(points, policy = 0, navType = 'driving') {
         try {
             // 转换所有导航点
             const convertedPoints = points.map(point => convertNavigationPoint(point));
+            // 多个点，使用途径点模式
+            navigation.search(convertedPoints, function(status, result) {
+                handleNavigationResult(status, result, points.length, navType);
+            });
             
-            // 如果只有两个点，使用起终点模式
-            if (convertedPoints.length === 2) {
-                navigation.search(convertedPoints[0], convertedPoints[1], function(status, result) {
-                    handleNavigationResult(status, result, points.length, navType);
-                });
-            } else {
-                // 多个点，使用途径点模式
-                navigation.search(convertedPoints, function(status, result) {
-                    handleNavigationResult(status, result, points.length, navType);
-                });
-            }
         } catch (error) {
             console.error('导航点转换失败:', error);
             showStatus('导航点转换失败: ' + error.message);
